@@ -1,21 +1,29 @@
 require 'vendor/gems/environment'
-require 'em-websocket'
+require 'cramp/controller'
 require 'uuid'
 require 'mq'
 
-uuid = UUID.new
+Cramp::Controller::Websocket.backend = :thin
 
-EventMachine::WebSocket.start(:host => "0.0.0.0", :port => 8080) do |ws|
-  ws.onopen do
+class TweetsController < Cramp::Controller::Websocket
+  @@uuid = UUID.new
+  
+  on_start :display
+  on_finish :close
+  
+  def display
     puts "WebSocket opened"
 
     twitter = MQ.new
-    twitter.queue(uuid.generate).bind(twitter.fanout('twitter')).subscribe do |t|
-      ws.send t
+    twitter.queue(@@uuid.generate).bind(twitter.fanout('twitter')).subscribe do |t|
+      render t
     end
   end
-
-  ws.onclose do
+  
+  def close
     puts "WebSocket closed"
   end
 end
+
+
+Rack::Handler::Thin.run TweetsController, :Port => 2000

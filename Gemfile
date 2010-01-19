@@ -1,5 +1,6 @@
 gem "amqp"
-gem "eventmachine"
-gem "em-websocket"
 gem "twitter-stream"
 gem "uuid"
+gem "arel", "0.2.pre", :git => "git://github.com/rails/arel.git"
+gem "rails", "3.0.pre", :git => "git://github.com/rails/rails.git"
+gem "cramp"
