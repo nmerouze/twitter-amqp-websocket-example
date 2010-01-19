@@ -4,7 +4,7 @@ Quick experiment of going from twitter to the browser, with no polling.
 
 It goes something like this:
 
-Twitter Stream -> Filter -> RabbitMQ -> AMQP -> EventMachine -> WebSocket -> HTML5 Browser
+Twitter Stream -> Filter -> RabbitMQ -> AMQP -> Cramp -> WebSocket -> HTML5 Browser
 
 Since it uses a fanout exchange on RabbitMQ, it allows to have multiple clients connected to the eventmachine loop and receive the same real-time updates (and hopeful it will scale).
 
