@@ -26,4 +26,4 @@ class TweetsController < Cramp::Controller::Websocket
 end
 
 
-Rack::Handler::Thin.run TweetsController, :Port => 2000
+Rack::Handler::Thin.run TweetsController, :Port => 3000
